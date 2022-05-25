@@ -25,7 +25,10 @@ class Palette extends Component {
         })
         return (
             <div className="Palette">
-                <Slider min={100} max={900} step={100} value={colorIntensity} onChange={this.handleSliderChange} />
+                <div className="slider">
+                    <Slider min={100} max={900} step={100} value={colorIntensity} onChange={this.handleSliderChange} />
+                </div>
+
                 <div className="Palette-colors">
                     {colorBoxes}
                 </div>
