@@ -19,9 +19,12 @@ class Palette extends Component {
         this.setState({ colorIntensity: value })
     }
 
-    changeColorFormat(e) {
+    changeColorFormat(format, callback) {
         this.setState({
-            colorFormat: e.target.value
+            colorFormat: format
+        }, () => {
+            callback(true)
+            setTimeout(() => { callback(false) }, 2000)
         })
     }
 
