@@ -7,24 +7,37 @@ class Palette extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            colorIntensity: 500
+            colorIntensity: 500,
+            colorFormat: 'hex'
         }
 
         this.handleSliderChange = this.handleSliderChange.bind(this);
+        this.changeColorFormat = this.changeColorFormat.bind(this);
     }
 
     handleSliderChange(value) {
         this.setState({ colorIntensity: value })
     }
+
+    changeColorFormat(e) {
+        this.setState({
+            colorFormat: e.target.value
+        })
+    }
+
     render() {
         const { colors } = this.props.palette;
-        const { colorIntensity } = this.state;
+        const { colorIntensity, colorFormat } = this.state;
         const colorBoxes = colors[colorIntensity].map(color => {
-            return <ColorBox key={color.id} background={color.hex} name={color.name} />
+            return <ColorBox key={color.id} background={color[colorFormat]} name={color.name} />
         })
         return (
             <div className="Palette">
-                <Navbar colorIntensity={this.state.colorIntensity} handleSliderChange={this.handleSliderChange} />
+                <Navbar
+                    colorFormat={colorFormat}
+                    colorIntensity={colorIntensity}
+                    handleSliderChange={this.handleSliderChange}
+                    changeColorFormat={this.changeColorFormat} />
 
                 <div className="Palette-colors">
                     {colorBoxes}
