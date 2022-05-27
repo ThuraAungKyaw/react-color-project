@@ -1,57 +1,52 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom'
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
 import './Palette.css';
 
-class Palette extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            colorIntensity: 500,
-            colorFormat: 'hex'
-        }
+function Palette({ palette, changePalette }) {
+    const [colorIntensity, setColorIntensity] = useState(500);
+    const [colorFormat, setColorFormat] = useState('hex');
+    const { colors, paletteName, emoji } = palette;
+    const { id } = useParams();
 
-        this.handleSliderChange = this.handleSliderChange.bind(this);
-        this.changeColorFormat = this.changeColorFormat.bind(this);
+
+    useEffect(() => {
+        changePalette(id)
+    }, [id, changePalette])
+
+    const handleSliderChange = (value) => {
+        setColorIntensity(value);
     }
 
-    handleSliderChange(value) {
-        this.setState({ colorIntensity: value })
+    const changeColorFormat = async (format, callback) => {
+        await setColorFormat(format)
+        callback(true)
+        setTimeout(() => { callback(false) }, 2000)
+
     }
 
-    changeColorFormat(format, callback) {
-        this.setState({
-            colorFormat: format
-        }, () => {
-            callback(true)
-            setTimeout(() => { callback(false) }, 2000)
-        })
-    }
+    const colorBoxes = colors[colorIntensity].map(color => {
+        return <ColorBox key={color.id} background={color[colorFormat]} name={color.name} />
+    })
+    return (
+        <div className="Palette">
+            <Navbar
+                colorFormat={colorFormat}
+                colorIntensity={colorIntensity}
+                handleSliderChange={handleSliderChange}
+                changeColorFormat={changeColorFormat} />
 
-    render() {
-        const { colors, paletteName, emoji } = this.props.palette;
-        const { colorIntensity, colorFormat } = this.state;
-        const colorBoxes = colors[colorIntensity].map(color => {
-            return <ColorBox key={color.id} background={color[colorFormat]} name={color.name} />
-        })
-        return (
-            <div className="Palette">
-                <Navbar
-                    colorFormat={colorFormat}
-                    colorIntensity={colorIntensity}
-                    handleSliderChange={this.handleSliderChange}
-                    changeColorFormat={this.changeColorFormat} />
-
-                <div className="Palette-colors">
-                    {colorBoxes}
-                </div>
-                <div className="palette-footer">
-                    {paletteName}
-                    <span className="emoji">{emoji}</span>
-                </div>
+            <div className="Palette-colors">
+                {colorBoxes}
             </div>
-        )
-    }
+            <div className="palette-footer">
+                {paletteName}
+                <span className="emoji">{emoji}</span>
+            </div>
+        </div>
+    )
+
 }
 
 export default Palette;
