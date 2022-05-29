@@ -58,12 +58,16 @@ function MiniPalette(props) {
 
   return (
     <>
+
       <div className={classes.root}>
-        <div className={classes.colors}>
-          {miniColorBoxes}
-        </div>
-        <h5 className={classes.title}>{paletteName} <span className={classes.emoji}>{emoji}</span></h5>
-        <Link to={`/palette/${id}`}>{paletteName}</Link>
+        <Link to={`/palette/${id}`}>
+          <div className={classes.colors}>
+            {miniColorBoxes}
+          </div>
+          <h5 className={classes.title}>{paletteName} <span className={classes.emoji}>{emoji}</span></h5>
+
+
+        </Link>
       </div>
 
 
