@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles } from "@mui/styles";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   root: {
@@ -23,8 +23,9 @@ const styles = {
     overflow: "hidden"
   },
   title: {
-    display: 'flex',
-    justifyContent: "space-between",
+    display: 'inline-flex',
+    // justifyContent: "space-between",
+    paddingBottom: '1rem',
     alignItems: "center",
     color: "black",
     margin: "0",
@@ -48,6 +49,7 @@ const styles = {
 
 
 function MiniPalette(props) {
+  const navigate = useNavigate();
   const { classes, id, paletteName, emoji, colors } = props;
   const miniColorBoxes = colors.map(color => {
     return <div className={classes.miniColor}
@@ -56,18 +58,20 @@ function MiniPalette(props) {
 
   })
 
+  const handleDivClick = () => {
+    navigate(`/palette/${id}`)
+  }
+
   return (
     <>
 
-      <div className={classes.root}>
-        <Link to={`/palette/${id}`}>
-          <div className={classes.colors}>
-            {miniColorBoxes}
-          </div>
-          <h5 className={classes.title}>{paletteName} <span className={classes.emoji}>{emoji}</span></h5>
+      <div className={classes.root} onClick={handleDivClick}>
 
+        <div className={classes.colors}>
+          {miniColorBoxes}
+        </div>
+        <h5 className={classes.title}>{paletteName} <span className={classes.emoji}>{emoji}</span></h5>
 
-        </Link>
       </div>
 
 
