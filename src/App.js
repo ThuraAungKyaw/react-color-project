@@ -18,6 +18,9 @@ function App() {
 
           setCurrentPalette(palette)
         }} />} />
+        <Route exact path="/palette/:paletteId/:colorId" element={<>Hello</>} />
+
+
       </Routes>
     </div>
   );
