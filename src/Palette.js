@@ -27,7 +27,7 @@ function Palette({ palette, changePalette }) {
     }
 
     const colorBoxes = colors[colorIntensity].map(color => {
-        return <ColorBox key={color.id} background={color[colorFormat]} name={color.name} />
+        return <ColorBox key={color.id} id={color.id} paletteId={id} background={color[colorFormat]} showLink={true} name={color.name} />
     })
     return (
         <div className="Palette">

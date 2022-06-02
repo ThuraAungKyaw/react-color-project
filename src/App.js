@@ -4,6 +4,7 @@ import Palette from './Palette';
 import seedColors from './seedColors';
 import { generatePalette } from './colorHelpers'
 import PaletteList from './PaletteList';
+import SingleColorPalette from './SingleColorPalette';
 
 function App() {
   const [currentPalette, setCurrentPalette] = useState(seedColors[4])
@@ -18,7 +19,7 @@ function App() {
 
           setCurrentPalette(palette)
         }} />} />
-        <Route exact path="/palette/:paletteId/:colorId" element={<>Hello</>} />
+        <Route exact path="/palette/:paletteId/:colorId" element={<SingleColorPalette palette={generatePalette(currentPalette)} />} />
 
 
       </Routes>
