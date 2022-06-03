@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
-import "./SingleColorPalette.css"
+import "./styles/SingleColorPalette.css"
 
 function SingleColorPalette({ palette }) {
     const { colorId, paletteId } = useParams()

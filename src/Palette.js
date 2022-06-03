@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
-import './Palette.css';
+import './styles/Palette.css';
 import PaletteFooter from "./PaletteFooter";
 
 function Palette({ palette, changePalette }) {

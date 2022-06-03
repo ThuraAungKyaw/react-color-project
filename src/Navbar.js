@@ -6,7 +6,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import 'rc-slider/assets/index.css';
-import './Navbar.css';
+import './styles/Navbar.css';
 
 function Navbar({ colorIntensity, colorFormat, handleSliderChange, changeColorFormat, isSinglePalette }) {
 
