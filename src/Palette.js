@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
 import './Palette.css';
+import PaletteFooter from "./PaletteFooter";
 
 function Palette({ palette, changePalette }) {
     const [colorIntensity, setColorIntensity] = useState(500);
@@ -40,10 +41,7 @@ function Palette({ palette, changePalette }) {
             <div className="Palette-colors">
                 {colorBoxes}
             </div>
-            <div className="palette-footer">
-                {paletteName}
-                <span className="emoji">{emoji}</span>
-            </div>
+            <PaletteFooter paletteName={paletteName} emoji={emoji} />
         </div>
     )
 

@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import 'rc-slider/assets/index.css';
 import './Navbar.css';
 
-function Navbar({ colorIntensity, colorFormat, handleSliderChange, changeColorFormat }) {
+function Navbar({ colorIntensity, colorFormat, handleSliderChange, changeColorFormat, isSinglePalette }) {
 
     const [open, setSnackBarState] = useState(false);
 
@@ -21,12 +21,12 @@ function Navbar({ colorIntensity, colorFormat, handleSliderChange, changeColorFo
             <div className="logo">
                 <a href="/">reactcolorpicker</a>
             </div>
-            <div className="slider-container">
+            {!isSinglePalette && <div className="slider-container">
                 <span>Level: {colorIntensity}</span>
                 <div className="slider">
                     <Slider min={100} max={900} step={100} value={colorIntensity} onChange={handleSliderChange} />
                 </div>
-            </div>
+            </div>}
             <div className="select-container">
                 <Select
                     labelId="color-option-select"

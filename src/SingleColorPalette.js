@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import ColorBox from "./ColorBox";
-
+import Navbar from "./Navbar";
+import PaletteFooter from "./PaletteFooter";
 
 function SingleColorPalette({ palette }) {
     const { colorId } = useParams()
-
+    const [colorFormat, setColorFormat] = useState("hex");
+    const { colors, emoji, paletteName } = palette;
 
     const gatherShades = () => {
         let shades = []
-        let colors = palette.colors;
 
         for (let key in colors) {
             shades = shades.concat(colors[key].filter(color => color.id === colorId))
@@ -21,18 +22,24 @@ function SingleColorPalette({ palette }) {
     const shades = gatherShades()
     const colorBoxes = shades.map(color => {
 
-        return <ColorBox key={color.name} id={color.name} name={color.name} background={color.hex} showLink={false} />
+        return <ColorBox key={color.name} id={color.name} name={color.name} background={color[colorFormat]} showLink={false} />
     })
+
+    const changeColorFormat = async (format, callback) => {
+        await setColorFormat(format)
+        callback(true)
+        setTimeout(() => { callback(false) }, 2000)
+
+    }
 
 
     return (
-
-
         <div className="Palette">
+            <Navbar colorFormat={colorFormat} changeColorFormat={changeColorFormat} isSinglePalette={true} />
             <div className="Palette-colors">
                 {colorBoxes}
             </div>
-
+            <PaletteFooter paletteName={paletteName} emoji={emoji} />
         </div>
     )
 
