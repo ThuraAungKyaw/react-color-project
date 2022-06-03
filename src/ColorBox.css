@@ -9,11 +9,18 @@
     margin-bottom: -3.5px;
 }
 
+.SingleColorPalette .ColorBox {
+    height: 50%;
+}
+
+
+
 .box-content {
     position: relative;
 }
 
-.copy-btn {
+.copy-btn,
+.back-btn {
     width: 100px;
     height: 30px;
     position: absolute;
@@ -29,6 +36,10 @@
     line-height: 30px;
     color: white;
     border: none;
+    text-decoration: none;
+}
+
+.copy-btn {
     opacity: 0;
 }
 
