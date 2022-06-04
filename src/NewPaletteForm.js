@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -14,7 +15,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-
 
 import './styles/NewPaletteForm.css';
 import DraggableColorBox from './DraggableColorBox';
@@ -70,16 +70,19 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 
-function NewPaletteForm() {
+function NewPaletteForm({ palettes, savePalette }) {
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     const [selectedColor, setSelectedColor] = useState("purple");
     const [colors, setColors] = useState([]);
     const [colorName, setColorName] = useState("");
+    const [paletteName, setPaletteName] = useState("");
+    const navigate = useNavigate();
     const paletteFull = colors.length === MAX_PALETTE_SIZE;
 
     ValidatorForm.addValidationRule('isNameExisting', (value) => colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase()));
-    ValidatorForm.addValidationRule('isColorExisting', (value) => colors.every(({ color }) => color !== selectedColor));
+    ValidatorForm.addValidationRule('isPaletteNameExisting', (value) => palettes.every(name => name.toLowerCase() !== value.toLowerCase()));
+    ValidatorForm.addValidationRule('isColorExisting', (_) => colors.every(({ color }) => color !== selectedColor));
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -93,8 +96,13 @@ function NewPaletteForm() {
         setSelectedColor(pickedColor.hex)
     }
 
-    const handleColorNameChange = (e) => {
-        setColorName(e.target.value)
+    const handleNameChange = (e) => {
+        if (e.target.name === 'paletteName') {
+            setPaletteName(e.target.value)
+        } else {
+            setColorName(e.target.value)
+        }
+
     }
 
     const addNewColor = () => {
@@ -104,14 +112,29 @@ function NewPaletteForm() {
         }
         // if (colors.indexOf(selectedColor) < 0) {
         setColors([...colors, newColor])
-        console.log(colors)
+        setColorName("")
+
         // }
+    }
+
+    const handleSave = () => {
+
+        let palette = {
+            colors: colors,
+            paletteName: paletteName,
+            id: paletteName.toLowerCase().replace(/ /g, "-")
+        }
+
+        savePalette(palette)
+        navigate("/")
+
+
     }
 
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
+            <AppBar position="fixed" color="default" open={open}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -123,8 +146,30 @@ function NewPaletteForm() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Persistent drawer
+                        Create A Palette
                     </Typography>
+                    <ValidatorForm
+
+                    >
+                        <TextValidator
+                            label="Palette Name"
+                            name="paletteName"
+                            onChange={handleNameChange}
+                            value={paletteName}
+                            validators={['required', 'isPaletteNameExisting']}
+                            errorMessages={['this field is required', 'the palette with the same name already exists']}
+                        />
+                    </ValidatorForm>
+                    <Stack style={{ marginLeft: 'auto' }} direction="row" spacing={2}>
+
+                        <Button variant="contained" color="error" >
+                            Back
+                        </Button>
+                        <Button variant="contained" color="primary" onClick={handleSave}>
+                            Save Palette
+                        </Button>
+
+                    </Stack>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -168,7 +213,8 @@ function NewPaletteForm() {
                     >
                         <TextValidator
                             label="Color Name"
-                            onChange={handleColorNameChange}
+                            name="colorName"
+                            onChange={handleNameChange}
                             value={colorName}
                             validators={['required', 'isNameExisting', 'isColorExisting']}
                             errorMessages={['this field is required', 'the color with the same name already exists', 'the color already exists']}
