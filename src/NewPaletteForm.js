@@ -13,18 +13,21 @@ import Stack from '@mui/material/Stack';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChromePicker } from 'react-color';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+
 
 import './styles/NewPaletteForm.css';
 import DraggableColorBox from './DraggableColorBox';
 
 
 const drawerWidth = 400;
+const MAX_PALETTE_SIZE = 20;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         flexGrow: 1,
         height: "calc(100vh - 64px)",
-        padding: theme.spacing(3),
+        //padding: theme.spacing(3),
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -68,11 +71,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 function NewPaletteForm() {
-    const theme = useTheme();
+
     const [open, setOpen] = useState(false);
     const [selectedColor, setSelectedColor] = useState("purple");
-    const [colors, setColors] = useState(["purple", "#e15764"]);
+    const [colors, setColors] = useState([]);
+    const [colorName, setColorName] = useState("");
+    const paletteFull = colors.length === MAX_PALETTE_SIZE;
 
+    ValidatorForm.addValidationRule('isNameExisting', (value) => colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase()));
+    ValidatorForm.addValidationRule('isColorExisting', (value) => colors.every(({ color }) => color !== selectedColor));
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -86,11 +93,19 @@ function NewPaletteForm() {
         setSelectedColor(pickedColor.hex)
     }
 
+    const handleColorNameChange = (e) => {
+        setColorName(e.target.value)
+    }
+
     const addNewColor = () => {
-        if (colors.indexOf(selectedColor) < 0) {
-            setColors([...colors, selectedColor])
-            console.log(colors)
+        let newColor = {
+            color: selectedColor,
+            name: colorName
         }
+        // if (colors.indexOf(selectedColor) < 0) {
+        setColors([...colors, newColor])
+        console.log(colors)
+        // }
     }
 
     return (
@@ -147,9 +162,22 @@ function NewPaletteForm() {
 
                     </Stack>
                     <ChromePicker color={selectedColor} onChange={handlePickerChange} />
-                    <Button variant="contained" onClick={addNewColor} style={{ background: selectedColor }}>
-                        ADD COLOR
-                    </Button>
+                    <ValidatorForm
+                        onSubmit={addNewColor}
+                    //onError={errors => console.log(errors)}
+                    >
+                        <TextValidator
+                            label="Color Name"
+                            onChange={handleColorNameChange}
+                            value={colorName}
+                            validators={['required', 'isNameExisting', 'isColorExisting']}
+                            errorMessages={['this field is required', 'the color with the same name already exists', 'the color already exists']}
+                        />
+                        <Button type="submit" disabled={paletteFull} variant="contained" style={{ background: selectedColor }}>
+                            {paletteFull ? 'PALETTE FULL' : 'ADD COLOR'}
+                        </Button>
+                    </ValidatorForm>
+
                 </div>
 
 
@@ -157,7 +185,7 @@ function NewPaletteForm() {
             <Main open={open}>
                 <DrawerHeader />
 
-                {colors.map(color => <DraggableColorBox color={color} />)}
+                {colors.map(color => <DraggableColorBox color={color.color} name={color.name} />)}
 
             </Main>
         </Box>
