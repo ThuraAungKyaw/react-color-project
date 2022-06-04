@@ -14,7 +14,6 @@ function App() {
 
   const savePalette = (palette) => {
     setPalettes([...palettes, palette])
-
   }
 
 
@@ -25,7 +24,6 @@ function App() {
         <Route exact path="/palette/new" element={<NewPaletteForm savePalette={savePalette} palettes={palettes.map(p => p.paletteName)} />} />
         <Route exact path="/palette/:id" element={<Palette palette={generatePalette(currentPalette)} changePalette={(id) => {
           const palette = palettes.filter(p => p.id === id)[0]
-
           setCurrentPalette(palette)
         }} />} />
         <Route exact path="/palette/:paletteId/:colorId" element={<SingleColorPalette palette={generatePalette(currentPalette)} />} />

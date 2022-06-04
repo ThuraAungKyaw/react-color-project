@@ -8,3 +8,27 @@
     text-transform: uppercase;
     margin-bottom: -3.5px;
 }
+
+
+.box-content {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    padding: 10px;
+    letter-spacing: 1px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.delete-icon {
+    color: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+.DraggableColorBox:hover .delete-icon {
+    color: rgb(255, 255, 255);
+    transform: scale(1.5);
+}
