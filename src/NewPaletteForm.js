@@ -117,6 +117,10 @@ function NewPaletteForm({ palettes, savePalette }) {
         // }
     }
 
+    const handleDelete = (color) => {
+        setColors(colors.filter(c => c.color !== color))
+    }
+
     const handleSave = () => {
 
         let palette = {
@@ -231,7 +235,7 @@ function NewPaletteForm({ palettes, savePalette }) {
             <Main open={open}>
                 <DrawerHeader />
 
-                {colors.map(color => <DraggableColorBox color={color.color} name={color.name} />)}
+                {colors.map(color => <DraggableColorBox key={color.name} deleteColor={handleDelete} color={color.color} name={color.name} />)}
 
             </Main>
         </Box>
