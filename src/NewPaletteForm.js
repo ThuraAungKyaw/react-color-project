@@ -69,6 +69,7 @@ function NewPaletteForm() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const [selectedColor, setSelectedColor] = useState("purple");
+    const [colors, setColors] = useState(["purple", "#e15764"]);
 
 
     const handleDrawerOpen = () => {
@@ -81,6 +82,13 @@ function NewPaletteForm() {
 
     const handlePickerChange = (pickedColor) => {
         setSelectedColor(pickedColor.hex)
+    }
+
+    const addNewColor = () => {
+        if (colors.indexOf(selectedColor) < 0) {
+            setColors([...colors, selectedColor])
+            console.log(colors)
+        }
     }
 
     return (
@@ -137,8 +145,7 @@ function NewPaletteForm() {
 
                     </Stack>
                     <ChromePicker color={selectedColor} onChange={handlePickerChange} />
-                    <Button variant="contained" style={{ background: selectedColor }}>
-
+                    <Button variant="contained" onClick={addNewColor} style={{ background: selectedColor }}>
                         ADD COLOR
                     </Button>
                 </div>
@@ -147,7 +154,9 @@ function NewPaletteForm() {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-
+                <ul>
+                    {colors.map(color => <li style={{ backgroundColor: color }}>{color}</li>)}
+                </ul>
             </Main>
         </Box>
     );
