@@ -49,7 +49,7 @@ function PaletteList({ palettes, classes }) {
                 </nav>
                 <div className={classes.palettes}>
                     {palettes.map(color => {
-                        return <MiniPalette {...color} />
+                        return <MiniPalette key={color.name} {...color} />
                     })
                     }
                 </div>
