@@ -16,6 +16,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { arrayMove } from 'react-sortable-hoc';
+import { getRandomColor } from './utils/helpers';
 
 import DraggableColorList from './DraggableColorList';
 
@@ -144,6 +145,14 @@ function NewPaletteForm({ palettes, savePalette }) {
         setColors(newList)
     };
 
+    const clearColors = () => {
+        setColors([])
+    }
+
+    const generateRandomColor = () => {
+        setSelectedColor(getRandomColor())
+    }
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -211,10 +220,10 @@ function NewPaletteForm({ palettes, savePalette }) {
                     </Typography>
                     <Stack direction="row" spacing={2}>
 
-                        <Button variant="contained" color="secondary">
-                            CLEAR PALETTE
+                        <Button variant="contained" color="secondary" onClick={clearColors}>
+                            CLEAR COLORS
                         </Button>
-                        <Button variant="contained" color="success">
+                        <Button variant="contained" color="success" onClick={generateRandomColor}>
                             RANDOM COLOR
                         </Button>
 
@@ -222,7 +231,6 @@ function NewPaletteForm({ palettes, savePalette }) {
                     <ChromePicker color={selectedColor} onChange={handlePickerChange} />
                     <ValidatorForm
                         onSubmit={addNewColor}
-                    //onError={errors => console.log(errors)}
                     >
                         <TextValidator
                             label="Color Name"
