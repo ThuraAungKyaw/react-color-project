@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
@@ -19,11 +15,9 @@ import { arrayMove } from 'react-sortable-hoc';
 import { getRandomColor } from './utils/helpers';
 
 import DraggableColorList from './DraggableColorList';
+import NewPaletteFormNav from './NewPaletteFormNav';
 
 import './styles/NewPaletteForm.css';
-
-
-
 
 const drawerWidth = 400;
 const MAX_PALETTE_SIZE = 20;
@@ -48,22 +42,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     }),
 );
 
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    }),
-}));
+
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -155,45 +134,11 @@ function NewPaletteForm({ palettes, savePalette }) {
 
     return (
         <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar position="fixed" color="default" open={open}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{ mr: 2, ...(open && { display: 'none' }) }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Create A Palette
-                    </Typography>
-                    <ValidatorForm
-
-                    >
-                        <TextValidator
-                            label="Palette Name"
-                            name="paletteName"
-                            onChange={handleNameChange}
-                            value={paletteName}
-                            validators={['required', 'isPaletteNameExisting']}
-                            errorMessages={['this field is required', 'the palette with the same name already exists']}
-                        />
-                    </ValidatorForm>
-                    <Stack style={{ marginLeft: 'auto' }} direction="row" spacing={2}>
-
-                        <Button variant="contained" color="error" >
-                            Back
-                        </Button>
-                        <Button variant="contained" color="primary" onClick={handleSave}>
-                            Save Palette
-                        </Button>
-
-                    </Stack>
-                </Toolbar>
-            </AppBar>
+            <NewPaletteFormNav open={open}
+                handleDrawerOpen={handleDrawerOpen}
+                handleNameChange={handleNameChange}
+                handleSave={handleSave}
+                paletteName={paletteName} />
             <Drawer
                 sx={{
                     width: drawerWidth,
