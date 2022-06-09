@@ -3,4 +3,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100%;
+}
+
+.btn-stack {
+    width: 100%;
+}
+
+.stack-btn {
+    width: 40%;
+    margin: 1rem auto !important;
+
 }

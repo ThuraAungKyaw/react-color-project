@@ -161,12 +161,12 @@ function NewPaletteForm({ palettes, savePalette }) {
                     <Typography variant="h4" component="h4">
                         Design Your Palette
                     </Typography>
-                    <Stack direction="row" spacing={2}>
+                    <Stack className="btn-stack" direction="row" spacing={2}>
 
-                        <Button variant="contained" color="secondary" onClick={clearColors}>
+                        <Button className="stack-btn" variant="contained" color="secondary" onClick={clearColors}>
                             CLEAR COLORS
                         </Button>
-                        <Button variant="contained" color="success" onClick={generateRandomColor}>
+                        <Button className="stack-btn" variant="contained" color="success" onClick={generateRandomColor}>
                             RANDOM COLOR
                         </Button>
 
