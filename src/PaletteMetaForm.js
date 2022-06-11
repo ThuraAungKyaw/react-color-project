@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useEffect } from "react";
 import Button from '@mui/material/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Dialog from '@mui/material/Dialog';
@@ -6,6 +6,18 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import data from '@emoji-mart/data'
+import { Picker } from 'emoji-mart'
+
+function EmojiPicker(props) {
+    const ref = useRef()
+
+    useEffect(() => {
+        new Picker({ ...props, data, ref })
+    }, [])
+
+    return <div ref={ref} />
+}
 
 function PaletteMetaForm({ isOpen, setModalOpen, paletteName, handleNameChange, handleSave }) {
 
@@ -28,15 +40,18 @@ function PaletteMetaForm({ isOpen, setModalOpen, paletteName, handleNameChange, 
             Save Palette
         </Button>
         <Dialog open={isOpen} onClose={handleClose}>
-            <DialogTitle>Save Palette</DialogTitle>
+            <DialogTitle>Choose a Palette Name</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-
+                    Please enter a new for your new palette.
                 </DialogContentText>
+                <EmojiPicker />
                 <ValidatorForm
                     onSubmit={handleSubmit}
                 >
                     <TextValidator
+                        fullWidth
+                        margin="normal"
                         label="Palette Name"
                         name="paletteName"
                         onChange={handleNameChange}
