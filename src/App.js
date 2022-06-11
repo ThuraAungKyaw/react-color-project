@@ -8,7 +8,6 @@ import SingleColorPalette from './SingleColorPalette';
 import NewPaletteForm from './NewPaletteForm';
 import "./styles/App.css";
 
-
 function App() {
 
   const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));

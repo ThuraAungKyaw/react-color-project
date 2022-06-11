@@ -1,5 +1,6 @@
 import React from "react";
 import { withStyles } from "@mui/styles";
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from "react-router-dom";
 
 const styles = {
@@ -10,8 +11,9 @@ const styles = {
     padding: "0.5rem",
     position: "relative",
     overflow: "hidden",
-    "&:hover": {
-      cursor: "pointer"
+    cursor: "pointer",
+    "&:hover svg": {
+      opacity: 1
     }
 
   },
@@ -44,6 +46,19 @@ const styles = {
     margin: "0 auto",
     position: "relative",
     marginBottom: "-3.5px"
+  },
+  delete: {},
+  deleteIcon: {
+    width: "20px",
+    height: "20px",
+    backgroundColor: "#eb3d30",
+    color: "white",
+    position: "absolute",
+    right: 0,
+    top: 0,
+    zIndex: 10,
+    opacity: 0,
+
   }
 }
 
@@ -66,7 +81,9 @@ function MiniPalette(props) {
     <>
 
       <div className={classes.root} onClick={handleDivClick}>
-
+        <div className={classes.delete}>
+          <DeleteIcon className={classes.deleteIcon} style={{ transition: "all 0.3s ease-in-out" }} />
+        </div>
         <div className={classes.colors}>
           {miniColorBoxes}
         </div>
