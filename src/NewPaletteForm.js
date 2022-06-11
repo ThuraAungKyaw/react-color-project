@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ValidatorForm } from 'react-material-ui-form-validator';
 import { arrayMoveImmutable as arrayMove } from 'array-move';
+import { DRAWER_WIDTH, MAX_PALETTE_COUNT } from './constants';
 import { getRandomColor } from './utils/helpers';
 
 import DraggableColorList from './DraggableColorList';
@@ -19,8 +20,8 @@ import NewPaletteFormNav from './NewPaletteFormNav';
 import './styles/NewPaletteForm.css';
 import ColorPickerForm from './ColorPickerForm';
 
-const drawerWidth = 400;
-const MAX_PALETTE_SIZE = 20;
+const drawerWidth = DRAWER_WIDTH;
+const MAX_PALETTE_SIZE = MAX_PALETTE_COUNT;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
