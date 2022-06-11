@@ -19,19 +19,24 @@ function EmojiPicker(props) {
     return <div ref={ref} />
 }
 
-function PaletteMetaForm({ isOpen, setModalOpen, paletteName, handleNameChange, handleSave }) {
+function PaletteMetaForm({ modalStage, setModalStage, paletteName, setPaletteName, handleNameChange, handleSave }) {
 
     const handleOpen = () => {
-        setModalOpen(true);
+        setModalStage("form");
     };
 
     const handleClose = () => {
-        setModalOpen(false);
+        setModalStage("");
+        setPaletteName("")
     };
 
     const handleSubmit = () => {
+        setModalStage("emoji")
+    }
 
-        handleSave()
+    const handleEmojiSelect = (emojiData) => {
+
+        handleSave(emojiData.native)
     }
 
 
@@ -39,13 +44,17 @@ function PaletteMetaForm({ isOpen, setModalOpen, paletteName, handleNameChange, 
         <Button variant="contained" color="primary" onClick={handleOpen}>
             Save Palette
         </Button>
-        <Dialog open={isOpen} onClose={handleClose}>
+        <Dialog open={modalStage === "emoji"} onClose={handleClose}>
+            <DialogTitle>Choose a Emoji</DialogTitle>
+            <EmojiPicker onEmojiSelect={handleEmojiSelect} />
+        </Dialog>
+        <Dialog open={modalStage === "form"} onClose={handleClose}>
             <DialogTitle>Choose a Palette Name</DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     Please enter a new for your new palette.
                 </DialogContentText>
-                <EmojiPicker />
+
                 <ValidatorForm
                     onSubmit={handleSubmit}
                 >
@@ -65,7 +74,6 @@ function PaletteMetaForm({ isOpen, setModalOpen, paletteName, handleNameChange, 
                     </DialogActions>
                 </ValidatorForm>
             </DialogContent>
-
         </Dialog>
     </div>)
 }

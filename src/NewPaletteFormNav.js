@@ -33,12 +33,8 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-function NewPaletteFormNav({ open, handleDrawerOpen, paletteName, handleSave, handleNameChange }) {
-    const [isModalOpen, setModalOpen] = useState(false);
-
-    const toggleModal = () => {
-        setModalOpen(!isModalOpen)
-    }
+function NewPaletteFormNav({ open, handleDrawerOpen, handleSave, handleNameChange, paletteName, setPaletteName }) {
+    const [modalStage, setModalStage] = useState(false);
 
     return (<div>
 
@@ -65,10 +61,11 @@ function NewPaletteFormNav({ open, handleDrawerOpen, paletteName, handleSave, ha
                             Back
                         </Button>
                     </Link>
-                    <PaletteMetaForm isOpen={isModalOpen}
-                        setModalOpen={setModalOpen}
+                    <PaletteMetaForm modalStage={modalStage}
+                        setModalStage={setModalStage}
                         handleSave={handleSave}
                         paletteName={paletteName}
+                        setPaletteName={setPaletteName}
                         handleNameChange={handleNameChange} />
 
                     {/* <Button variant="contained" color="primary" onClick={handleSave}>

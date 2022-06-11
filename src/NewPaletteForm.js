@@ -65,7 +65,6 @@ function NewPaletteForm({ palettes, savePalette }) {
 
     ValidatorForm.addValidationRule('isNameExisting', (value) => colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase()));
     ValidatorForm.addValidationRule('isPaletteNameExisting', (value) => palettes.every(name => name.toLowerCase() !== value.toLowerCase()));
-
     ValidatorForm.addValidationRule('isColorExisting', (_) => colors.every(({ color }) => color !== selectedColor));
 
 
@@ -83,12 +82,9 @@ function NewPaletteForm({ palettes, savePalette }) {
             color: color,
             name: name
         }
-        // if (colors.indexOf(selectedColor) < 0) {
+
         await setColors([...colors, newColor])
         setSelectedColor("")
-
-
-        // }
     }
 
 
@@ -97,15 +93,17 @@ function NewPaletteForm({ palettes, savePalette }) {
         setColors(colors.filter(c => c.color !== color))
     }
 
-    const handleSave = () => {
-        console.log(`handleSaveClicked`)
+    const handleSave = (emoji) => {
+
         let palette = {
             colors: colors,
             paletteName: paletteName,
-            id: paletteName.toLowerCase().replace(/ /g, "-")
+            id: paletteName.toLowerCase().replace(/ /g, "-"),
+            emoji: emoji
         }
 
         savePalette(palette)
+        setPaletteName("")
         navigate("/")
 
 
@@ -113,7 +111,7 @@ function NewPaletteForm({ palettes, savePalette }) {
 
     const onSortEnd = ({ oldIndex, newIndex }) => {
         let newList = arrayMove(colors, oldIndex, newIndex);
-        console.log(newList)
+
         setColors(newList)
     };
 
@@ -138,7 +136,9 @@ function NewPaletteForm({ palettes, savePalette }) {
                 handleDrawerOpen={handleDrawerOpen}
                 handleNameChange={handleNameChange}
                 handleSave={handleSave}
-                paletteName={paletteName} />
+                paletteName={paletteName}
+                setPaletteName={setPaletteName}
+            />
             <Drawer
                 sx={{
                     width: drawerWidth,
