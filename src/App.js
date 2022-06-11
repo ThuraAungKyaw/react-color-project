@@ -17,7 +17,10 @@ function App() {
 
   const savePalette = (palette) => {
     setPalettes([...palettes, palette])
+  }
 
+  const deletePalette = (id) => {
+    setPalettes(palettes.filter(p => p.id !== id))
   }
 
   const syncLocalStorage = useCallback(() => {
@@ -35,7 +38,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<PaletteList palettes={palettes} />} />
+        <Route exact path="/" element={<PaletteList palettes={palettes} deletePalette={deletePalette} />} />
         <Route exact path="/palette/new" element={<NewPaletteForm savePalette={savePalette} palettes={palettes.map(p => p.paletteName)} />} />
         <Route exact path="/palette/:id" element={<Palette palette={generatePalette(currentPalette)} changePalette={(id) => {
           const palette = palettes.filter(p => p.id === id)[0]

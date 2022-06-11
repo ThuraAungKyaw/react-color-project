@@ -26,7 +26,6 @@ const styles = {
   },
   title: {
     display: 'inline-flex',
-    // justifyContent: "space-between",
     paddingBottom: '1rem',
     alignItems: "center",
     color: "black",
@@ -47,7 +46,6 @@ const styles = {
     position: "relative",
     marginBottom: "-3.5px"
   },
-  delete: {},
   deleteIcon: {
     width: "20px",
     height: "20px",
@@ -65,7 +63,7 @@ const styles = {
 
 function MiniPalette(props) {
   const navigate = useNavigate();
-  const { classes, id, paletteName, emoji, colors } = props;
+  const { classes, id, paletteName, emoji, colors, deletePalette } = props;
   const miniColorBoxes = colors.map(color => {
     return <div className={classes.miniColor}
       style={{ backgroundColor: color.color }}
@@ -77,13 +75,22 @@ function MiniPalette(props) {
     navigate(`/palette/${id}`)
   }
 
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    deletePalette(id);
+  }
+
   return (
     <>
 
       <div className={classes.root} onClick={handleDivClick}>
-        <div className={classes.delete}>
-          <DeleteIcon className={classes.deleteIcon} style={{ transition: "all 0.3s ease-in-out" }} />
-        </div>
+
+        <DeleteIcon
+          className={classes.deleteIcon}
+          style={{ transition: "all 0.3s ease-in-out" }}
+          onClick={handleDelete}
+        />
+
         <div className={classes.colors}>
           {miniColorBoxes}
         </div>
