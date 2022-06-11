@@ -16,6 +16,16 @@
     align-items: center;
 }
 
+@media (max-width: 575.98px) {
+
+
+    .logo {
+        display: none;
+    }
+
+}
+
+
 .logo a {
     text-decoration: none;
     color: #000;
@@ -26,6 +36,16 @@
     margin: 0 10px;
     display: inline-block;
 }
+
+@media (max-width: 575.98px) {
+
+
+    .slider {
+        width: 150px;
+    }
+
+}
+
 
 .select-container {
     margin-left: auto;

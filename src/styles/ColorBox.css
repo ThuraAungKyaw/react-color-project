@@ -1,3 +1,13 @@
+/* :root {
+    --xs: 575.98px;
+    --sm: 767.98px;
+    --md: 991.98px;
+    --lg: 1199.98px;
+} */
+
+
+
+
 .ColorBox {
     width: 20%;
     height: 25%;
@@ -8,6 +18,24 @@
     text-transform: uppercase;
     margin-bottom: -3.5px;
 }
+
+@media (max-width: 575.98px) {
+    .ColorBox {
+        width: 100%;
+    }
+
+
+}
+
+
+@media (min-width: 575.98px) and (max-width: 767.98px) {
+    .ColorBox {
+        width: 50%;
+    }
+
+}
+
+
 
 .SingleColorPalette .ColorBox {
     height: 50%;
@@ -101,6 +129,15 @@
     transform: scale(0.1);
     opacity: 0;
     color: white;
+}
+
+@media (max-width: 575.98px) {
+
+
+    .copy-msg {
+        font-size: 3rem;
+    }
+
 }
 
 .copy-msg.show {
