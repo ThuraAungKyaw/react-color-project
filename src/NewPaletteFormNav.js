@@ -9,7 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import MenuIcon from '@mui/icons-material/Menu';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+
+import PaletteMetaForm from "./PaletteMetaForm";
 
 import './styles/NewPaletteForm.css';
 
@@ -35,7 +36,12 @@ const AppBar = styled(MuiAppBar, {
 function NewPaletteFormNav({ open, handleDrawerOpen, paletteName, handleSave, handleNameChange }) {
     const [isModalOpen, setModalOpen] = useState(false);
 
+    const toggleModal = () => {
+        setModalOpen(!isModalOpen)
+    }
+
     return (<div>
+
         <CssBaseline />
         <AppBar position="fixed" color="default" open={open}>
             <Toolbar>
@@ -51,18 +57,7 @@ function NewPaletteFormNav({ open, handleDrawerOpen, paletteName, handleSave, ha
                 <Typography variant="h6" noWrap component="div">
                     Create A Palette
                 </Typography>
-                <ValidatorForm
 
-                >
-                    <TextValidator
-                        label="Palette Name"
-                        name="paletteName"
-                        onChange={handleNameChange}
-                        value={paletteName}
-                        validators={['required', 'isPaletteNameExisting']}
-                        errorMessages={['this field is required', 'the palette with the same name already exists']}
-                    />
-                </ValidatorForm>
                 <Stack style={{ marginLeft: 'auto' }} direction="row" spacing={2}>
 
                     <Link to="/" style={{ textDecoration: "none" }}>
@@ -70,14 +65,21 @@ function NewPaletteFormNav({ open, handleDrawerOpen, paletteName, handleSave, ha
                             Back
                         </Button>
                     </Link>
+                    <PaletteMetaForm isOpen={isModalOpen}
+                        setModalOpen={setModalOpen}
+                        handleSave={handleSave}
+                        paletteName={paletteName}
+                        handleNameChange={handleNameChange} />
 
-                    <Button variant="contained" color="primary" onClick={handleSave}>
-                        Save Palette
-                    </Button>
+                    {/* <Button variant="contained" color="primary" onClick={handleSave}>
+                        Save Palette 
+                </Button>*/}
+
 
                 </Stack>
             </Toolbar>
         </AppBar>
+
     </div>)
 }
 

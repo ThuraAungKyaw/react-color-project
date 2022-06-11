@@ -9,7 +9,10 @@ function ColorPickerForm({ selectedColor, setSelectedColor, paletteFull, addNewC
     const [colorName, setColorName] = useState("");
 
     const handlePickerChange = (pickedColor) => {
-        setSelectedColor(pickedColor.hex)
+        if (pickedColor) {
+            setSelectedColor(pickedColor.hex)
+        }
+
     }
 
     const handleNameChange = (e) => {

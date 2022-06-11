@@ -5,7 +5,9 @@ import { SortableElement } from "react-sortable-hoc";
 
 const DraggableColorBox = SortableElement(({ color, name, deleteColor }) => {
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.stopPropagation();
+        console.log(color)
         deleteColor(color)
     }
 

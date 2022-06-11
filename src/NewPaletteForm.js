@@ -77,13 +77,15 @@ function NewPaletteForm({ palettes, savePalette }) {
         setOpen(false);
     };
 
-    const addNewColor = (color, name) => {
+    const addNewColor = async (color, name) => {
+
         let newColor = {
             color: color,
             name: name
         }
         // if (colors.indexOf(selectedColor) < 0) {
-        setColors([...colors, newColor])
+        await setColors([...colors, newColor])
+        setSelectedColor("")
 
 
         // }
@@ -96,7 +98,7 @@ function NewPaletteForm({ palettes, savePalette }) {
     }
 
     const handleSave = () => {
-
+        console.log(`handleSaveClicked`)
         let palette = {
             colors: colors,
             paletteName: paletteName,
@@ -184,7 +186,7 @@ function NewPaletteForm({ palettes, savePalette }) {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-                <DraggableColorList colors={colors} removeColor={handleDelete} axis="xy" onSortEnd={onSortEnd} />
+                <DraggableColorList distance={1} colors={colors} removeColor={handleDelete} axis="xy" onSortEnd={onSortEnd} />
             </Main>
         </Box>
     );
