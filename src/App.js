@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Palette from './Palette';
 import seedColors from './seedColors';
@@ -6,15 +6,31 @@ import { generatePalette } from './colorHelpers'
 import PaletteList from './PaletteList';
 import SingleColorPalette from './SingleColorPalette';
 import NewPaletteForm from './NewPaletteForm';
+import "./styles/App.css";
 
 
 function App() {
-  const [currentPalette, setCurrentPalette] = useState(seedColors[4])
-  const [palettes, setPalettes] = useState(seedColors);
+
+  const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
+  console.log(savedPalettes)
+  const [currentPalette, setCurrentPalette] = useState(savedPalettes ? savedPalettes[4] : seedColors[4])
+  const [palettes, setPalettes] = useState(savedPalettes || seedColors);
 
   const savePalette = (palette) => {
     setPalettes([...palettes, palette])
+
   }
+
+  const syncLocalStorage = useCallback(() => {
+
+    window.localStorage.setItem("palettes", JSON.stringify(palettes))
+  }, [palettes])
+
+  useEffect(() => {
+    syncLocalStorage();
+  }, [syncLocalStorage])
+
+
 
 
   return (

@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 const styles = {
     root: {
         backgroundColor: 'blue',
-        height: '100vh',
-        margin: '0 auto',
+        margin: '0 auto 20px auto',
         display: 'flex',
         alignItems: "flex-start",
         justifyContent: "center"
