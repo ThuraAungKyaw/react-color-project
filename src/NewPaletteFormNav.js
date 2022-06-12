@@ -9,9 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import MenuIcon from '@mui/icons-material/Menu';
-
 import PaletteMetaForm from "./PaletteMetaForm";
-
 import './styles/NewPaletteForm.css';
 
 const drawerWidth = 400;

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
-import './styles/Palette.css';
 import PaletteFooter from "./PaletteFooter";
-
+import './styles/Palette.css';
 
 function Palette({ palette, changePalette }) {
     const [colorIntensity, setColorIntensity] = useState(500);

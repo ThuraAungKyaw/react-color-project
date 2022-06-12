@@ -1,32 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Palette from './Palette';
-import seedColors from './seedColors';
-import { generatePalette } from './colorHelpers'
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import PaletteList from './PaletteList';
 import SingleColorPalette from './SingleColorPalette';
 import NewPaletteForm from './NewPaletteForm';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import Palette from './Palette';
+import Page from './Page';
+import seedColors from './seedColors';
+import { generatePalette } from './colorHelpers'
 import "./styles/App.css";
 
-// const AnimatedSwitch = () => {
-//   const location = useLocation();
-
-//   console.log("location", location);
-
-// const [transitionName, setTransitionName] = useState("next");
-
-/*
-useEffect(() => {
-  if (transitionName === "next") setTransitionName("prev");
-  if (transitionName === "prev") setTransitionName("next");
-}, [location]);
-*/
-
-// return (
-
-// );
-// };
 
 function App() {
 
@@ -61,17 +44,17 @@ function App() {
       <TransitionGroup >
         <CSSTransition
           key={location.pathname}
-          classNames="fade"
+          classNames="page"
           timeout={500}
         >
           <Routes location={location}>
-            <Route exact path="/" element={<PaletteList palettes={palettes} deletePalette={deletePalette} />} />
-            <Route exact path="/palette/new" element={<NewPaletteForm savePalette={savePalette} palettes={palettes.map(p => p.paletteName)} />} />
-            <Route exact path="/palette/:id" element={<Palette palette={generatePalette(currentPalette)} changePalette={(id) => {
+            <Route exact path="/" element={<Page><PaletteList palettes={palettes} deletePalette={deletePalette} /></Page>} />
+            <Route exact path="/palette/new" element={<Page><NewPaletteForm savePalette={savePalette} palettes={palettes.map(p => p.paletteName)} /></Page>} />
+            <Route exact path="/palette/:id" element={<Page><Palette palette={generatePalette(currentPalette)} changePalette={(id) => {
               const palette = palettes.filter(p => p.id === id)[0]
               setCurrentPalette(palette)
-            }} />} />
-            <Route exact path="/palette/:paletteId/:colorId" element={<SingleColorPalette palette={generatePalette(currentPalette)} />} />
+            }} /></Page>} />
+            <Route exact path="/palette/:paletteId/:colorId" element={<Page><SingleColorPalette palette={generatePalette(currentPalette)} /></Page>} />
 
 
           </Routes>

@@ -9,7 +9,6 @@ function SingleColorPalette({ palette }) {
     const { colorId, paletteId } = useParams()
     const [colorFormat, setColorFormat] = useState("hex");
     const { colors, emoji, paletteName } = palette;
-    console.log(palette)
 
 
     const gatherShades = () => {

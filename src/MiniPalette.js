@@ -1,7 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { withStyles } from "@mui/styles";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useNavigate } from "react-router-dom";
 
 const styles = {
   root: {
@@ -59,10 +59,10 @@ const styles = {
   }
 }
 
-
 function MiniPalette(props) {
   const navigate = useNavigate();
   const { classes, id, paletteName, emoji, colors, openDialog } = props;
+
   const miniColorBoxes = colors.map(color => {
     return <div className={classes.miniColor}
       style={{ backgroundColor: color.color }}
@@ -78,6 +78,8 @@ function MiniPalette(props) {
     e.stopPropagation();
     openDialog(id);
   }
+
+  console.log("rerendered", id)
 
   return (
     <>
@@ -102,6 +104,8 @@ function MiniPalette(props) {
 
   )
 }
+
+
 
 export default withStyles(styles)(MiniPalette);
 

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
-import Button from '@mui/material/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -15,7 +15,7 @@ function EmojiPicker(props) {
 
     useEffect(() => {
         new Picker({ ...props, data, ref })
-    }, [])
+    })
 
     return <div ref={ref} />
 }
@@ -36,8 +36,8 @@ function PaletteMetaForm({ modalStage, setModalStage, paletteName, setPaletteNam
     }
 
     const handleEmojiSelect = (emojiData) => {
-
         handleSave(emojiData.native)
+        setModalStage("")
     }
 
 
