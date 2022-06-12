@@ -10,9 +10,10 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import MenuIcon from '@mui/icons-material/Menu';
 import PaletteMetaForm from "./PaletteMetaForm";
+import { DRAWER_WIDTH } from "./constants";
 import './styles/NewPaletteForm.css';
 
-const drawerWidth = 400;
+const drawerWidth = DRAWER_WIDTH;
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -65,12 +66,6 @@ function NewPaletteFormNav({ open, handleDrawerOpen, handleSave, handleNameChang
                         paletteName={paletteName}
                         setPaletteName={setPaletteName}
                         handleNameChange={handleNameChange} />
-
-                    {/* <Button variant="contained" color="primary" onClick={handleSave}>
-                        Save Palette 
-                </Button>*/}
-
-
                 </Stack>
             </Toolbar>
         </AppBar>

@@ -56,6 +56,7 @@ function App() {
               setCurrentPalette(palette)
             }} /></Page>} />
             <Route exact path="/palette/:paletteId/:colorId" element={<Page><SingleColorPalette palette={generatePalette(currentPalette)} /></Page>} />
+            <Route path="*" element={<Page><PaletteList palettes={palettes} deletePalette={deletePalette} /></Page>} />
           </Routes>
         </CSSTransition>
       </TransitionGroup>
