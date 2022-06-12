@@ -62,7 +62,7 @@ const styles = {
 
 function MiniPalette(props) {
   const navigate = useNavigate();
-  const { classes, id, paletteName, emoji, colors, deletePalette } = props;
+  const { classes, id, paletteName, emoji, colors, openDialog } = props;
   const miniColorBoxes = colors.map(color => {
     return <div className={classes.miniColor}
       style={{ backgroundColor: color.color }}
@@ -76,7 +76,7 @@ function MiniPalette(props) {
 
   const handleDelete = (e) => {
     e.stopPropagation();
-    deletePalette(id);
+    openDialog(id);
   }
 
   return (

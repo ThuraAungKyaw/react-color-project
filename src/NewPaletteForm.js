@@ -187,7 +187,7 @@ function NewPaletteForm({ palettes, savePalette }) {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-                <DraggableColorList distance={1} colors={colors} removeColor={handleDelete} axis="xy" onSortEnd={onSortEnd} />
+                <DraggableColorList distance={20} colors={colors} removeColor={handleDelete} axis="xy" onSortEnd={onSortEnd} />
             </Main>
         </Box>
     );

@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import './styles/Palette.css';
 import PaletteFooter from "./PaletteFooter";
 
+
 function Palette({ palette, changePalette }) {
     const [colorIntensity, setColorIntensity] = useState(500);
     const [colorFormat, setColorFormat] = useState('hex');
