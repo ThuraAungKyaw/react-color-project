@@ -14,7 +14,7 @@ import "./styles/App.css";
 function App() {
 
   const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
-  const [currentPalette, setCurrentPalette] = useState(savedPalettes ? savedPalettes[4] : seedColors[4])
+  const [currentPalette, setCurrentPalette] = useState(savedPalettes ? savedPalettes[0] || {} : seedColors[0] || {})
   const [palettes, setPalettes] = useState(savedPalettes || seedColors);
   const location = useLocation();
 
@@ -27,16 +27,17 @@ function App() {
     setPalettes(palettes.filter(p => p.id !== id))
   }
 
-  const syncLocalStorage = useCallback(() => {
+  const seedPalettes = () => {
+    setPalettes(seedColors)
+  }
 
+  const syncLocalStorage = useCallback(() => {
     window.localStorage.setItem("palettes", JSON.stringify(palettes))
   }, [palettes])
 
   useEffect(() => {
     syncLocalStorage();
   }, [syncLocalStorage])
-
-
 
 
   return (
@@ -55,8 +56,6 @@ function App() {
               setCurrentPalette(palette)
             }} /></Page>} />
             <Route exact path="/palette/:paletteId/:colorId" element={<Page><SingleColorPalette palette={generatePalette(currentPalette)} /></Page>} />
-
-
           </Routes>
         </CSSTransition>
       </TransitionGroup>

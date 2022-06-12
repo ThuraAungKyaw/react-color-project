@@ -48,11 +48,11 @@
 }
 
 .delete-icon {
-    color: rgba(0, 0, 0, 0.5);
+
     transition: all 0.3s ease-in-out;
 }
 
 .DraggableColorBox:hover .delete-icon {
-    color: rgb(255, 255, 255);
+
     transform: scale(1.5);
 }
