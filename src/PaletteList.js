@@ -16,7 +16,13 @@ const styles = {
         display: "flex",
         alignItems: "flex-start",
         flexDirection: "column",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        "@media (max-width: 575.98px)": {
+            width: '60%'
+        },
+        "@media (min-width: 575.98px) and (max-width: 991.98px)": {
+            width: '80%'
+        }
     },
     nav: {
         display: "flex",
@@ -33,7 +39,14 @@ const styles = {
         width: "100%",
         display: "grid",
         gridTemplateColumns: "repeat(3, 30%)",
-        gridGap: "5%"
+        gridGap: "1.5rem",
+        "@media (max-width: 575.98px)": {
+            gridTemplateColumns: "repeat(1, 100%)",
+            gridGap: "1rem"
+        },
+        "@media (min-width: 575.98px) and (max-width: 991.98px)": {
+            gridTemplateColumns: "repeat(2, 50%)"
+        }
     }
 }
 
